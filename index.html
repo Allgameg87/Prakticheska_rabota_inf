@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расчёт коммунальных платежей</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .month-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            background-color: #e7f3fe !important;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin-top: 30px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Расчёт коммунальных платежей</h1>
+            <p>Анализ потребления и стоимости коммунальных услуг</p>
+        </header>
+
+        <div class="grid">
+            <!-- Сентябрь -->
+            <div class="month-section">
+                <h2>Сентябрь 2017</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Услуга</th>
+                            <th>Текущий</th>
+                            <th>Предыдущий</th>
+                            <th>Разница</th>
+                            <th>Тариф</th>
+                            <th>К оплате</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Газ</td>
+                            <td>41</td>
+                            <td>27</td>
+                            <td>14</td>
+                            <td>51.91</td>
+                            <td>726.74</td>
+                        </tr>
+                        <tr>
+                            <td>Холодная вода</td>
+                            <td>1135</td>
+                            <td>1128</td>
+                            <td>7</td>
+                            <td>21.62</td>
+                            <td>151.34</td>
+                        </tr>
+                        <tr>
+                            <td>Горячая вода</td>
+                            <td>90</td>
+                            <td>86</td>
+                            <td>4</td>
+                            <td>125.00</td>
+                            <td>500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Электричество</td>
+                            <td>9614</td>
+                            <td>9524</td>
+                            <td>90</td>
+                            <td>4.53</td>
+                            <td>407.70</td>
+                        </tr>
+                        <tr>
+                            <td>Домофон</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>40.00</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>ЖЭК</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>370.00</td>
+                            <td>370.00</td>
+                        </tr>
+                        <tr>
+                            <td>Мусор</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>99.32</td>
+                            <td>99.32</td>
+                        </tr>
+                        <tr>
+                            <td>Отопление</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>-</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="5">Сумма:</td>
+                            <td>2,255.10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="chart-container">
+                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Сентябрь" alt="Диаграмма платежей за сентябрь" style="width:100%; border-radius:8px;">
+                </div>
+            </div>
+
+            <!-- Октябрь -->
+            <div class="month-section">
+                <h2>Октябрь 2017</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Услуга</th>
+                            <th>Текущий</th>
+                            <th>Предыдущий</th>
+                            <th>Разница</th>
+                            <th>Тариф</th>
+                            <th>К оплате</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Газ</td>
+                            <td>77</td>
+                            <td>41</td>
+                            <td>36</td>
+                            <td>51.91</td>
+                            <td>1,868.76</td>
+                        </tr>
+                        <tr>
+                            <td>Холодная вода</td>
+                            <td>1146</td>
+                            <td>1135</td>
+                            <td>11</td>
+                            <td>21.62</td>
+                            <td>237.82</td>
+                        </tr>
+                        <tr>
+                            <td>Горячая вода</td>
+                            <td>100</td>
+                            <td>90</td>
+                            <td>10</td>
+                            <td>125.00</td>
+                            <td>1,250.00</td>
+                        </tr>
+                        <tr>
+                            <td>Электричество</td>
+                            <td>9743</td>
+                            <td>9614</td>
+                            <td>129</td>
+                            <td>4.53</td>
+                            <td>584.37</td>
+                        </tr>
+                        <tr>
+                            <td>Домофон</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>40.00</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>ЖЭК</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>370.00</td>
+                            <td>370.00</td>
+                        </tr>
+                        <tr>
+                            <td>Мусор</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>99.32</td>
+                            <td>99.32</td>
+                        </tr>
+                        <tr>
+                            <td>Отопление</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>-</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="5">Сумма:</td>
+                            <td>4,410.27</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="chart-container">
+                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Октябрь" alt="Диаграмма платежей за октябрь" style="width:100%; border-radius:8px;">
+                </div>
+            </div>
+
+            <!-- Ноябрь -->
+            <div class="month-section">
+                <h2>Ноябрь 2017</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Услуга</th>
+                            <th>Текущий</th>
+                            <th>Предыдущий</th>
+                            <th>Разница</th>
+                            <th>Тариф</th>
+                            <th>К оплате</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Газ</td>
+                            <td>130</td>
+                            <td>77</td>
+                            <td>53</td>
+                            <td>51.91</td>
+                            <td>2,751.23</td>
+                        </tr>
+                        <tr>
+                            <td>Холодная вода</td>
+                            <td>1159</td>
+                            <td>1146</td>
+                            <td>13</td>
+                            <td>21.62</td>
+                            <td>281.06</td>
+                        </tr>
+                        <tr>
+                            <td>Горячая вода</td>
+                            <td>113</td>
+                            <td>100</td>
+                            <td>13</td>
+                            <td>125.00</td>
+                            <td>1,625.00</td>
+                        </tr>
+                        <tr>
+                            <td>Электричество</td>
+                            <td>9922</td>
+                            <td>9743</td>
+                            <td>179</td>
+                            <td>4.53</td>
+                            <td>810.87</td>
+                        </tr>
+                        <tr>
+                            <td>Домофон</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>40.00</td>
+                            <td>40.00</td>
+                        </tr>
+                        <tr>
+                            <td>ЖЭК</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>370.00</td>
+                            <td>370.00</td>
+                        </tr>
+                        <tr>
+                            <td>Мусор</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>99.32</td>
+                            <td>99.32</td>
+                        </tr>
+                        <tr>
+                            <td>Отопление</td>
+                            <td>17.11</td>
+                            <td>20.10</td>
+                            <td>28</td>
+                            <td>42.13</td>
+                            <td>1,179.64</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="5">Сумма:</td>
+                            <td>7,157.12</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="chart-container">
+                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Ноябрь" alt="Диаграмма платежей за ноябрь" style="width:100%; border-radius:8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+  </html>
