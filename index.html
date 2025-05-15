@@ -3,129 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Расчёт коммунальных платежей</title>
+    <title>Коммунальные платежи | Анализ расходов</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4895ef;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --warning: #f72585;
-        }
-        
-        * {
-            box-sizing: border-box;
+        /* Системные шрифты для быстрой загрузки */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        body {
-            background-color: #f5f7fa;
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
+
+        /* Контейнер с ограничением по ширине */
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
         }
-        
+
+        /* Шапка */
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 1.5rem 0;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         h1 {
-            color: var(--primary);
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
-        
+
+        /* Секции по месяцам */
         .month-section {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
+        .month-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
         h2 {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: var(--primary);
+            background: #3a0ca3;
             color: white;
+            padding: 1rem;
+            font-size: 1.3rem;
+            margin: 0;
             font-weight: 500;
         }
-        
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        /* Оптимизированная таблица */
+        .responsive-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
         }
-        
-        tr:hover {
-            background-color: #f1f1f1;
+
+        .responsive-table th,
+        .responsive-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
         }
-        
+
+        .responsive-table th {
+            background-color: #f1f3f9;
+            font-weight: 600;
+            color: #3a0ca3;
+        }
+
+        .responsive-table tr:nth-child(even) {
+            background-color: #f9fafc;
+        }
+
+        .responsive-table tr:hover {
+            background-color: #f1f3f9;
+        }
+
         .total-row {
-            font-weight: bold;
-            background-color: #e7f3fe !important;
+            font-weight: 600;
+            background-color: #e9ecef !important;
         }
-        
-        .chart-container {
-            height: 400px;
-            margin-top: 30px;
+
+        /* Графики - легковесное решение */
+        .chart-placeholder {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #eee;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
+
+        .chart-placeholder svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            opacity: 0.7;
         }
-        
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
+            .responsive-table {
+                font-size: 0.8rem;
             }
             
-            th, td {
-                padding: 8px 10px;
+            .responsive-table th,
+            .responsive-table td {
+                padding: 0.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Минимальная анимация для интерактивности */
+        @media (prefers-reduced-motion: reduce) {
+            .month-section {
+                transition: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Расчёт коммунальных платежей</h1>
-            <p>Анализ потребления и стоимости коммунальных услуг</p>
-        </header>
+    <header>
+        <div class="container">
+            <h1>Коммунальные платежи</h1>
+            <p>Анализ расходов за III квартал 2017 года</p>
+        </div>
+    </header>
 
-        <div class="grid">
-            <!-- Сентябрь -->
-            <div class="month-section">
-                <h2>Сентябрь 2017</h2>
-                <table>
+    <main class="container">
+        <!-- Сентябрь -->
+        <section class="month-section">
+            <h2>Сентябрь 2017</h2>
+            <div class="table-container">
+                <table class="responsive-table">
                     <thead>
                         <tr>
                             <th>Услуга</th>
@@ -202,21 +236,25 @@
                             <td>0.00</td>
                         </tr>
                         <tr class="total-row">
-                            <td colspan="5">Сумма:</td>
+                            <td colspan="5">Итого:</td>
                             <td>2,255.10</td>
                         </tr>
                     </tbody>
                 </table>
-                
-                <div class="chart-container">
-                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Сентябрь" alt="Диаграмма платежей за сентябрь" style="width:100%; border-radius:8px;">
-                </div>
             </div>
+            <div class="chart-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20V10M18 20V4M6 20v-4"></path>
+                </svg>
+                <p>График потребления услуг за сентябрь</p>
+            </div>
+        </section>
 
-            <!-- Октябрь -->
-            <div class="month-section">
-                <h2>Октябрь 2017</h2>
-                <table>
+        <!-- Октябрь -->
+        <section class="month-section">
+            <h2>Октябрь 2017</h2>
+            <div class="table-container">
+                <table class="responsive-table">
                     <thead>
                         <tr>
                             <th>Услуга</th>
@@ -293,21 +331,25 @@
                             <td>0.00</td>
                         </tr>
                         <tr class="total-row">
-                            <td colspan="5">Сумма:</td>
+                            <td colspan="5">Итого:</td>
                             <td>4,410.27</td>
                         </tr>
                     </tbody>
                 </table>
-                
-                <div class="chart-container">
-                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Октябрь" alt="Диаграмма платежей за октябрь" style="width:100%; border-radius:8px;">
-                </div>
             </div>
+            <div class="chart-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20V10M18 20V4M6 20v-4"></path>
+                </svg>
+                <p>График потребления услуг за октябрь</p>
+            </div>
+        </section>
 
-            <!-- Ноябрь -->
-            <div class="month-section">
-                <h2>Ноябрь 2017</h2>
-                <table>
+        <!-- Ноябрь -->
+        <section class="month-section">
+            <h2>Ноябрь 2017</h2>
+            <div class="table-container">
+                <table class="responsive-table">
                     <thead>
                         <tr>
                             <th>Услуга</th>
@@ -384,17 +426,41 @@
                             <td>1,179.64</td>
                         </tr>
                         <tr class="total-row">
-                            <td colspan="5">Сумма:</td>
+                            <td colspan="5">Итого:</td>
                             <td>7,157.12</td>
                         </tr>
                     </tbody>
                 </table>
-                
-                <div class="chart-container">
-                    <img src="https://via.placeholder.com/600x400/e9ecef/495057?text=Диаграмма+за+Ноябрь" alt="Диаграмма платежей за ноябрь" style="width:100%; border-radius:8px;">
-                </div>
             </div>
-        </div>
-    </div>
+            <div class="chart-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20V10M18 20V4M6 20v-4"></path>
+                </svg>
+                <p>График потребления услуг за ноябрь</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Минимальный JavaScript для интерактивности -->
+    <script>
+        // Простейший обработчик для демонстрации
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавляем класс при загрузке для плавного появления
+            document.body.classList.add('loaded');
+            
+            // Простая анимация при наведении (если не отключена в системе)
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const sections = document.querySelectorAll('.month-section');
+                sections.forEach(section => {
+                    section.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-3px)';
+                    });
+                    section.addEventListener('mouseleave', function() {
+                        this.style.transform = '';
+                    });
+                });
+            }
+        });
+    </script>
 </body>
-  </html>
+</html>
